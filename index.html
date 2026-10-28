@@ -65,7 +65,7 @@
             justify-content: center;
             scroll-snap-align: start;
             position: relative;
-            padding: 100px 5% 60px; /* Extra padding top for nav */
+            padding: 100px 5% 60px;
         }
 
         /* =========================================
@@ -154,48 +154,44 @@
         }
 
         /* =========================================
-           5. GLASSMORPHISM CARDS
+           5. HERO SECTION (Strict Side-by-Side 50/50)
            ========================================= */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: var(--glass-shadow);
-            padding: 40px;
-            transition: transform 0.5s var(--ease-smooth), box-shadow 0.5s var(--ease-smooth);
+        #hero {
+            padding: 0; 
+            display: flex;
+            flex-direction: row; /* यसले बायाँ-दायाँ राख्छ */
+            height: 100vh; 
+            width: 100%;
         }
 
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.08);
-        }
-
-        /* =========================================
-           6. SECTION 1: HERO
-           ========================================= */
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-            z-index: 1;
+        /* Left Half: Text */
+        .hero-left {
+            width: 50%; /* ठ्याक्कै आधा भाग */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5% 0 8%; /* स्क्रिन सानो हुँदा पनि अटाउन प्याडिङ मिलाइएको */
+            position: relative;
+            z-index: 2;
+            background-color: rgba(244, 241, 234, 0.6); 
         }
 
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             background: rgba(44, 74, 59, 0.1);
             color: var(--accent-green);
-            padding: 10px 20px;
+            padding: 6px 14px;
             border-radius: 99px;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            margin-bottom: 32px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             border: 1px solid rgba(44, 74, 59, 0.2);
+            align-self: flex-start;
         }
 
         .status-badge .dot {
@@ -211,22 +207,23 @@
             100% { box-shadow: 0 0 0 0 rgba(44, 74, 59, 0); }
         }
 
-        .hero-content h1 {
+        .hero-left h1 {
             font-family: var(--font-heading);
-            font-size: clamp(3rem, 6vw, 5.5rem);
+            /* स्क्रिन साइज अनुसार फन्ट साइज घट्ने-बढ्ने */
+            font-size: clamp(1.8rem, 4vw, 4.2rem); 
             line-height: 1.1;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
         }
 
-        .hero-content h1 em {
+        .hero-left h1 em {
             color: var(--accent-rust);
         }
 
-        .hero-content p {
-            font-size: 1.2rem;
+        .hero-left p {
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
             color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
+            margin-bottom: 30px;
             font-weight: 500;
         }
 
@@ -234,24 +231,64 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            padding: 18px 40px;
+            gap: 10px;
+            padding: 14px 28px;
             background: var(--accent-green);
             color: #fff;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: clamp(0.85rem, 1vw, 1rem);
             border-radius: 99px;
             transition: all 0.4s var(--ease-smooth);
             border: none;
             cursor: pointer;
             box-shadow: 0 10px 20px rgba(44, 74, 59, 0.2);
+            align-self: flex-start;
         }
 
         .btn:hover {
             background: #1E362B;
             transform: scale(1.05) translateY(-2px);
             box-shadow: 0 15px 30px rgba(44, 74, 59, 0.3);
+        }
+
+        /* Right Half: Image */
+        .hero-right {
+            width: 50%; /* ठ्याक्कै आधा भाग */
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 2s var(--ease-smooth);
+        }
+
+        .hero-right:hover img {
+            transform: scale(1.05);
+        }
+
+        /* =========================================
+           6. GLASSMORPHISM CARDS (Other Sections)
+           ========================================= */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            padding: 40px;
+            transition: transform 0.5s var(--ease-smooth), box-shadow 0.5s var(--ease-smooth);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.08);
         }
 
         /* =========================================
@@ -498,9 +535,11 @@
         }
 
         /* =========================================
-           12. MOBILE RESPONSIVENESS
+           12. MOBILE RESPONSIVENESS 
+           (यहाँ मैले Hero section लाई माथि-तल हुनबाट रोकेको छु)
            ========================================= */
         @media (max-width: 992px) {
+            /* अरु सेक्सनहरु माथि-तल हुन्छन्, तर Hero हुँदैन */
             .grid-2 { grid-template-columns: 1fr; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); }
             .timeline-line { left: 20px; }
@@ -508,16 +547,26 @@
             .timeline-content { width: calc(100% - 50px); margin-left: 50px; text-align: left !important; }
             .timeline-dot { left: 20px; }
             .glass-card { padding: 30px; }
+            
+            /* Hero ma side-by-side nai rakhna ko lagi padding adjust */
+            .hero-left {
+                padding: 0 3% 0 5%;
+            }
         }
 
         @media (max-width: 768px) {
             nav { padding: 15px 5%; }
             .nav-links { display: none; }
-            .hero-content h1 { font-size: 2.8rem; }
             .gallery-grid { grid-template-columns: 1fr; }
             .contact-buttons { flex-direction: column; }
             .timeline-content h3 { font-size: 1.1rem; }
             .timeline-content h4 { font-size: 0.85rem; }
+            
+            /* मोबाइलमा पनि आधा-आधा नै राख्नको लागि */
+            .hero-left h1 { font-size: 1.5rem; }
+            .hero-left p { font-size: 0.8rem; margin-bottom: 15px; }
+            .status-badge { font-size: 0.6rem; padding: 4px 8px; margin-bottom: 10px;}
+            .btn { padding: 10px 16px; font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -538,16 +587,24 @@
         </div>
     </nav>
 
-    <!-- SECTION 1: HERO -->
+    <!-- SECTION 1: HERO (Side by Side 50/50 on ALL screens) -->
     <section id="hero">
-        <div class="hero-content reveal">
+        
+        <!-- Left 50%: Text -->
+        <div class="hero-left reveal">
             <div class="status-badge">
                 <span class="dot"></span> Available in Finland
             </div>
-            <h1>Bridging Global Logistics<br>with <em>Nordic Precision.</em></h1>
+            <h1>Bridging Global Logistics with <em>Nordic Precision.</em></h1>
             <p>A decade of operational excellence in Qatar, now bringing proven inventory management, ERP expertise, and international adaptability to the Finnish workforce.</p>
-            <a href="#profile" class="btn">Explore My Journey <i class="fa-solid fa-arrow-down"></i></a>
+            <a href="#profile" class="btn">Explore <i class="fa-solid fa-arrow-down"></i></a>
         </div>
+
+        <!-- Right 50%: Image -->
+        <div class="hero-right reveal" style="transition-delay: 0.2s;">
+            <img src="images/raman-profile.jpg" alt="Raman Bhandari">
+        </div>
+
     </section>
 
     <!-- SECTION 2: PROFILE & SKILLS -->
@@ -616,7 +673,6 @@
                 </div>
             </div>
 
-            <!-- Added Al Baironi Trading Role -->
             <div class="timeline-item reveal">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content glass-card">
@@ -805,11 +861,10 @@
         });
 
         // ----------------------------------------------------
-        // 4. 3D TILT EFFECT ON GALLERY
+        // 4. 3D TILT EFFECT ON GALLERY CARDS
         // ----------------------------------------------------
         if (window.innerWidth > 992) {
             const cards = document.querySelectorAll('.gallery-card');
-            
             cards.forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
