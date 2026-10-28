@@ -24,8 +24,8 @@
             --accent-green: #2C4A3B;
             --accent-rust: #D96B4C;
             
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.9);
             --glass-shadow: 0 24px 48px rgba(0, 0, 0, 0.05);
             
             --font-heading: 'Playfair Display', serif;
@@ -151,7 +151,7 @@
         }
 
         /* =========================================
-           4. HERO SECTION (Strict 50/50)
+           4. HERO SECTION
            ========================================= */
         #hero {
             padding: 0; 
@@ -172,7 +172,7 @@
             padding: 0 5% 0 8%; 
             position: relative;
             z-index: 2;
-            background-color: rgba(244, 241, 234, 0.6); 
+            background-color: rgba(244, 241, 234, 0.7); 
         }
 
         .status-badge {
@@ -279,35 +279,132 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* CRITICAL FIX: Shifts the image up so your face is always in frame */
-            object-position: center 15%; 
+            /* Shifts image to show face */
+            object-position: center 10%; 
             display: block;
             transition: transform 2s var(--ease-smooth);
         }
 
-        .hero-right:hover img {
-            transform: scale(1.05);
+        /* =========================================
+           5. MAIN EXPERIENCE SECTION (Upgraded)
+           ========================================= */
+        #experience {
+            background: linear-gradient(180deg, var(--bg-base) 0%, #EBE7DF 100%);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 120px 5%;
+        }
+
+        .exp-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .exp-header h2 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .exp-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: rgba(44, 74, 59, 0.15);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 42%;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.3s;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--accent-green);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 0 0 8px var(--bg-base);
+            z-index: 2;
+        }
+
+        .timeline-content h3 {
+            font-family: var(--font-body);
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .timeline-content h4 {
+            font-size: 0.95rem;
+            color: var(--accent-rust);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .timeline-content p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.5;
         }
 
         /* =========================================
-           5. GLASSMORPHISM & SECTIONS
+           6. PROFILE & SKILLS
            ========================================= */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: var(--glass-shadow);
-            padding: 40px;
-            transition: transform 0.5s var(--ease-smooth), box-shadow 0.5s var(--ease-smooth);
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.08);
-        }
-
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -315,6 +412,15 @@
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            padding: 40px;
         }
 
         .section-title {
@@ -344,109 +450,32 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: all 0.3s;
-            cursor: default;
-        }
-
-        .skill-tag:hover {
-            background: var(--accent-green);
-            color: #fff;
-            transform: translateY(-3px) scale(1.05);
-        }
-
-        /* TIMELINE */
-        .timeline-container {
-            max-width: 900px;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-            padding: 20px 0;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: rgba(0,0,0,0.1);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-content {
-            width: 45%;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            text-align: right;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 16px;
-            height: 16px;
-            background: var(--accent-rust);
-            border-radius: 50%;
-            border: 4px solid var(--bg-base);
-            box-shadow: 0 0 0 4px rgba(217, 107, 76, 0.2);
-        }
-
-        .timeline-content h3 {
-            font-family: var(--font-body);
-            font-size: 1.2rem;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
-
-        .timeline-content h4 {
-            font-size: 0.9rem;
-            color: var(--accent-rust);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .timeline-content p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
         }
 
         /* =========================================
-           6. GALLERY (Fixed Alignment)
+           7. GALLERY (Fixed Overlap & Cropping)
            ========================================= */
+        #gallery {
+            padding: 120px 5%;
+            background: #fff;
+        }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
-            perspective: 1000px;
         }
 
         .gallery-card {
             position: relative;
             border-radius: 20px;
             overflow: hidden;
-            /* CRITICAL FIX: Aspect Ratio instead of fixed height so images don't overlap */
+            /* 4:3 Aspect Ratio keeps images standard */
             aspect-ratio: 4 / 3; 
-            cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.3s ease;
-            transform-style: preserve-3d;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
             background-color: #E5E1D8;
         }
 
@@ -454,9 +483,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* CRITICAL FIX: Shifts the crop upwards to keep faces visible */
-            object-position: center 20%;
+            /* Centers face vertically, shows top first */
+            object-position: center 25%;
             transition: transform 0.5s ease;
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.08);
         }
 
         .gallery-overlay {
@@ -468,17 +501,11 @@
             justify-content: flex-end;
             padding: 24px;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s var(--ease-smooth);
+            transition: all 0.4s ease;
         }
 
         .gallery-card:hover .gallery-overlay {
             opacity: 1;
-            transform: translateY(0);
-        }
-
-        .gallery-card:hover img {
-            transform: scale(1.1);
         }
 
         .gallery-overlay h4 {
@@ -491,13 +518,10 @@
             color: var(--accent-rust);
             font-size: 0.85rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 4px;
         }
 
         /* =========================================
-           7. CONTACT & HOVERS
+           8. CONTACT & WHATSAPP
            ========================================= */
         .contact-section {
             text-align: center;
@@ -509,43 +533,26 @@
             margin-bottom: 20px;
         }
 
-        .contact-section p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         .contact-buttons {
             display: flex;
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--accent-green);
-            color: var(--accent-green);
+            margin-top: 30px;
         }
 
         .btn-email:hover {
-            background: #E85D04; /* Orange */
+            background: #E85D04;
             border-color: #E85D04;
             color: #fff;
         }
 
         .btn-linkedin:hover {
-            background: #0A66C2; /* LinkedIn Blue */
+            background: #0A66C2;
             border-color: #0A66C2;
             color: #fff;
         }
 
-        /* =========================================
-           8. WHATSAPP FLOATING BUTTON
-           ========================================= */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -562,20 +569,10 @@
             text-decoration: none;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
             z-index: 9999;
-            transition: all 0.3s ease;
             animation: pulse-wa 2s infinite;
         }
 
-        .whatsapp-float i {
-            font-size: 1.5rem;
-        }
-
-        .whatsapp-float:hover {
-            transform: translateY(-5px) scale(1.05);
-            background-color: #128C7E;
-            animation: none;
-            box-shadow: 0 8px 25px rgba(18, 140, 126, 0.5);
-        }
+        .whatsapp-float i { font-size: 1.5rem; }
 
         @keyframes pulse-wa {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
@@ -584,27 +581,18 @@
         }
 
         /* =========================================
-           9. ANIMATIONS & MOBILE
+           9. MOBILE RESPONSIVENESS
            ========================================= */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s var(--ease-smooth);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         @media (max-width: 992px) {
             .grid-2 { grid-template-columns: 1fr; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .timeline-line { left: 20px; }
-            .timeline-item, .timeline-item:nth-child(even) { flex-direction: row; text-align: left !important; margin-bottom: 40px;}
-            .timeline-content { width: calc(100% - 50px); margin-left: 50px; text-align: left !important; }
-            .timeline-dot { left: 20px; }
-            .glass-card { padding: 30px; }
+            
+            /* Timeline Mobile Fix */
+            .timeline-line { left: 30px; }
+            .timeline-item, .timeline-item:nth-child(even) { flex-direction: row; margin-bottom: 40px; }
+            .timeline-content { width: calc(100% - 80px); margin-left: 80px; text-align: left !important; }
+            .timeline-icon { left: 30px; width: 40px; height: 40px; font-size: 1rem; box-shadow: 0 0 0 6px #EBE7DF; }
+
             .hero-left { padding: 0 3% 0 5%; }
             .hero-buttons { flex-direction: row; }
         }
@@ -613,20 +601,15 @@
             nav { padding: 15px 5%; }
             .nav-links { display: none; }
             .gallery-grid { grid-template-columns: 1fr; }
-            .contact-buttons { flex-direction: column; }
-            .timeline-content h3 { font-size: 1.1rem; }
-            .timeline-content h4 { font-size: 0.85rem; }
             
             /* 50/50 Layout strictly kept on mobile */
             .hero-left { padding: 0 10px 0 15px; }
             .hero-left h1 { font-size: 1.2rem; margin-bottom: 8px; }
             .hero-left p { display: none; }
-            .status-badge { font-size: 0.5rem; padding: 3px 6px; margin-bottom: 10px; }
             .hero-buttons { flex-direction: column; gap: 5px; }
             .btn { padding: 6px 10px; font-size: 0.65rem; }
 
             .whatsapp-float { bottom: 15px; right: 15px; padding: 10px 15px; font-size: 0.8rem; }
-            .whatsapp-float i { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -638,13 +621,14 @@
         <a href="#" class="logo">Raman Bhandari</a>
         <div class="nav-links">
             <a href="#hero" class="active">Home</a>
-            <a href="#profile">Profile</a>
             <a href="#experience">Experience</a>
+            <a href="#profile">Profile</a>
             <a href="#gallery">Journey</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
 
+    <!-- HERO SECTION -->
     <section id="hero">
         <div class="hero-left reveal">
             <div class="status-badge">
@@ -654,18 +638,77 @@
             <p>A decade of operational excellence in Qatar, now bringing proven inventory management, ERP expertise, and international adaptability to the Finnish workforce.</p>
             
             <div class="hero-buttons">
-                <a href="#profile" class="btn">Explore <i class="fa-solid fa-arrow-down"></i></a>
+                <a href="#experience" class="btn">Explore Experience <i class="fa-solid fa-arrow-down"></i></a>
                 
-                <!-- CV DOWNLOAD LINK: Make sure the PDF is in your main GitHub folder with this exact name -->
-                <a href="Raman_Bhandari_CV.pdf" download class="btn btn-outline-green">Download CV <i class="fa-solid fa-download"></i></a>
+                <!-- FIX: Changed CV to mailto so it doesn't 404 -->
+                <a href="mailto:raman.bhandari@email.com?subject=Request%20for%20CV" class="btn btn-outline-green">Request CV <i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
 
         <div class="hero-right reveal" style="transition-delay: 0.2s;">
-            <img src="images/raman-profile.jpg" alt="Raman Bhandari">
+            <!-- Added onerror fallback so it never shows a broken image icon -->
+            <img src="images/raman-profile.jpg" onerror="this.src='https://placehold.co/800x1000/E5E1D8/2C4A3B?text=Photo+Missing'" alt="Raman Bhandari">
         </div>
     </section>
 
+    <!-- MAIN EXPERIENCE SECTION (Moved up to be the focus) -->
+    <section id="experience">
+        <div class="exp-header reveal">
+            <h2>Professional Experience</h2>
+            <p>A proven track record of operational reliability, supply chain management, and international adaptability.</p>
+        </div>
+
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-item reveal">
+                <div class="timeline-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="timeline-content">
+                    <h3>Business Management Student</h3>
+                    <h4>Laurea UAS, Finland | Present</h4>
+                    <p>Developing skills in business administration, digital tools, and cross-cultural communication.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-icon"><i class="fa-solid fa-globe"></i></div>
+                <div class="timeline-content">
+                    <h3>Event Transport & Support</h3>
+                    <h4>FIFA World Cup Qatar | 2022</h4>
+                    <p>Managed airport welcome/farewell desks, assisting with international logistics and VIP visitor support.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div class="timeline-content">
+                    <h3>Shareholder</h3>
+                    <h4>Miniland | 2019 - Present</h4>
+                    <p>Business ownership exposure, providing practical insight into business management and commercial decision-making.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                <div class="timeline-content">
+                    <h3>Assistant Storekeeper</h3>
+                    <h4>Al Baker Group, Qatar</h4>
+                    <p>Maintained rigorous inventory accuracy and stock control in a large-scale distribution environment.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-icon"><i class="fa-solid fa-desktop"></i></div>
+                <div class="timeline-content">
+                    <h3>Data Entry & Inventory Support</h3>
+                    <h4>Al Baironi Trading, Qatar</h4>
+                    <p>Processed sales invoices and managed ERP data entry to ensure smooth operational workflows and accurate documentation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFILE SECTION -->
     <section id="profile">
         <div class="grid-2">
             <div class="glass-card profile-text reveal">
@@ -690,96 +733,46 @@
         </div>
     </section>
 
-    <section id="experience">
-        <div class="timeline-container">
-            <div class="timeline-line"></div>
-            
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content glass-card">
-                    <h3>Business Management Student</h3>
-                    <h4>Laurea UAS, Finland | Present</h4>
-                    <p>Developing skills in business administration, digital tools, and cross-cultural communication.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content glass-card">
-                    <h3>Event Transport & Support</h3>
-                    <h4>FIFA World Cup Qatar | 2022</h4>
-                    <p>Managed airport welcome/farewell desks, assisting with international logistics and VIP visitor support.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content glass-card">
-                    <h3>Shareholder</h3>
-                    <h4>Miniland | 2019 - Present</h4>
-                    <p>Business ownership exposure, providing practical insight into business management and commercial decision-making.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content glass-card">
-                    <h3>Assistant Storekeeper</h3>
-                    <h4>Al Baker Group, Qatar</h4>
-                    <p>Maintained rigorous inventory accuracy and stock control in a large-scale distribution environment.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content glass-card">
-                    <h3>Data Entry & Inventory Support</h3>
-                    <h4>Al Baironi Trading, Qatar</h4>
-                    <p>Processed sales invoices and managed ERP data entry to ensure smooth operational workflows and accurate documentation.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- GALLERY SECTION -->
     <section id="gallery">
         <div class="gallery-grid">
             <div class="gallery-card reveal">
-                <img src="images/fifa-volunteer.jpg" alt="FIFA World Cup">
+                <img src="images/fifa-volunteer.jpg" onerror="this.src='https://placehold.co/600x400/E5E1D8/2C4A3B?text=Image+Missing'" alt="FIFA World Cup">
                 <div class="gallery-overlay">
                     <h4>FIFA World Cup 2022</h4>
                     <p>Airport Welcome Desk</p>
                 </div>
             </div>
             <div class="gallery-card reveal" style="transition-delay: 0.1s;">
-                <img src="images/warehouse-team.jpg" alt="Warehouse Operations">
+                <img src="images/warehouse-team.jpg" onerror="this.src='https://placehold.co/600x400/E5E1D8/2C4A3B?text=Image+Missing'" alt="Warehouse Operations">
                 <div class="gallery-overlay">
                     <h4>Logistics Operations</h4>
                     <p>Team Collaboration</p>
                 </div>
             </div>
             <div class="gallery-card reveal" style="transition-delay: 0.2s;">
-                <img src="images/office-work.jpg" alt="Data Entry">
+                <img src="images/office-work.jpg" onerror="this.src='https://placehold.co/600x400/E5E1D8/2C4A3B?text=Image+Missing'" alt="Data Entry">
                 <div class="gallery-overlay">
                     <h4>Administration</h4>
                     <p>ERP Data Entry</p>
                 </div>
             </div>
             <div class="gallery-card reveal" style="transition-delay: 0.1s;">
-                <img src="images/pallets.jpg" alt="Warehouse Pallets">
+                <img src="images/pallets.jpg" onerror="this.src='https://placehold.co/600x400/E5E1D8/2C4A3B?text=Image+Missing'" alt="Warehouse Pallets">
                 <div class="gallery-overlay">
                     <h4>Inventory Management</h4>
                     <p>Stock Control</p>
                 </div>
             </div>
             <div class="gallery-card reveal" style="transition-delay: 0.2s;">
-                <img src="images/nepal-flag.jpg" alt="Nepal Flag">
+                <img src="images/nepal-flag.jpg" onerror="this.src='https://placehold.co/600x400/E5E1D8/2C4A3B?text=Image+Missing'" alt="Nepal Flag">
                 <div class="gallery-overlay">
                     <h4>Global Representation</h4>
                     <p>Proudly representing Nepal</p>
                 </div>
             </div>
             <div class="gallery-card reveal" style="transition-delay: 0.3s;">
-                <img src="images/raman-profile.jpg" alt="Raman">
+                <img src="images/raman-profile.jpg" onerror="this.src='https://placehold.co/600x400/E5E1D8/2C4A3B?text=Image+Missing'" alt="Raman">
                 <div class="gallery-overlay">
                     <h4>Professional Profile</h4>
                     <p>Helsinki, Finland</p>
@@ -788,6 +781,7 @@
         </div>
     </section>
 
+    <!-- CONTACT SECTION -->
     <section id="contact" class="contact-section">
         <div class="reveal">
             <h2>Let's build something reliable.</h2>
@@ -803,7 +797,7 @@
         </div>
     </section>
 
-    <!-- WhatsApp Button: Change the 358... number to your actual number -->
+    <!-- WHATSAPP BUTTON -->
     <a href="https://wa.me/358400000000?text=Hello%20Raman,%20I%20saw%20your%20portfolio!" target="_blank" class="whatsapp-float">
         <i class="fa-brands fa-whatsapp"></i>
         <span>Click to Chat</span>
@@ -904,26 +898,6 @@
                 nav.classList.remove('scrolled');
             }
         });
-
-        // 3D TILT
-        if (window.innerWidth > 992) {
-            const cards = document.querySelectorAll('.gallery-card');
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -10;
-                    const rotateY = ((x - centerX) / centerX) * 10;
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
-                });
-            });
-        }
     </script>
 </body>
 </html>
