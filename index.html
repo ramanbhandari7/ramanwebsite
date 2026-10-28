@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raman Bhandari | Global Operations</title>
     
-    <!-- FAVICON (Inside images folder) -->
+    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="images/favicon.io.png">
     
     <!-- Premium Fonts -->
@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Icons (FontAwesome) -->
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -82,7 +82,7 @@
         }
 
         /* =========================================
-           3. NAVIGATION & HAMBURGER MENU
+           3. NAVIGATION
            ========================================= */
         nav {
             position: fixed;
@@ -171,7 +171,7 @@
         #hero {
             padding: 0; 
             display: flex;
-            flex-direction: row;
+            flex-direction: row; 
             height: 100vh; 
             width: 100%;
             overflow: hidden;
@@ -190,12 +190,13 @@
             background-color: rgba(244, 241, 234, 0.7); 
         }
 
+        /* Blinking Online Status Badge */
         .status-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(44, 74, 59, 0.1);
-            color: var(--accent-green);
+            background: rgba(48, 209, 88, 0.1);
+            color: #1b8a2d;
             padding: 6px 14px;
             border-radius: 99px;
             font-size: 0.75rem;
@@ -203,26 +204,25 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            border: 1px solid rgba(44, 74, 59, 0.2);
+            border: 1px solid rgba(48, 209, 88, 0.2);
             align-self: flex-start;
         }
 
         .status-badge .dot {
             width: 8px; height: 8px;
-            background: var(--accent-green);
+            background: #30d158;
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            animation: blink-green 1.5s infinite;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(44, 74, 59, 0.4); }
-            70% { box-shadow: 0 0 0 8px rgba(44, 74, 59, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(44, 74, 59, 0); }
+        @keyframes blink-green {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(48, 209, 88, 0.8); }
+            50% { opacity: 0.3; box-shadow: 0 0 0 rgba(48, 209, 88, 0); }
         }
 
         .hero-left h1 {
             font-family: var(--font-heading);
-            font-size: clamp(1.8rem, 4vw, 4.2rem); 
+            font-size: clamp(2.5rem, 4vw, 4.2rem); 
             line-height: 1.1;
             margin-bottom: 20px;
             color: var(--text-dark);
@@ -233,7 +233,7 @@
         }
 
         .hero-left p {
-            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            font-size: clamp(1rem, 1.2vw, 1.1rem);
             color: var(--text-muted);
             margin-bottom: 30px;
             font-weight: 500;
@@ -244,6 +244,8 @@
             flex-direction: column;
             gap: 12px;
             align-self: flex-start;
+            width: 100%;
+            max-width: 350px;
         }
 
         .btn {
@@ -251,24 +253,38 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 14px 28px;
+            padding: 16px 28px;
             background: var(--accent-green);
             color: #fff;
             text-decoration: none;
             font-weight: 600;
-            font-size: clamp(0.85rem, 1vw, 1rem);
+            font-size: 1rem;
             border-radius: 99px;
             transition: all 0.4s var(--ease-smooth);
             border: 2px solid var(--accent-green);
             cursor: pointer;
             box-shadow: 0 10px 20px rgba(44, 74, 59, 0.2);
             white-space: nowrap;
+            text-align: center;
         }
 
         .btn:hover {
             background: #1E362B;
             transform: scale(1.05) translateY(-2px);
             box-shadow: 0 15px 30px rgba(44, 74, 59, 0.3);
+        }
+
+        .btn-hire {
+            background: var(--accent-rust);
+            border-color: var(--accent-rust);
+            box-shadow: 0 10px 20px rgba(217, 107, 76, 0.3);
+            font-size: 1.05rem;
+        }
+
+        .btn-hire:hover {
+            background: #C25638;
+            border-color: #C25638;
+            box-shadow: 0 15px 30px rgba(217, 107, 76, 0.4);
         }
 
         .btn-outline-green {
@@ -295,7 +311,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 10%; 
+            object-position: center 15%; 
             display: block;
             transition: transform 2s var(--ease-smooth);
         }
@@ -577,6 +593,7 @@
             color: #fff;
         }
 
+        /* WhatsApp Button with Blinking Online Dot */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -593,22 +610,42 @@
             text-decoration: none;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
             z-index: 999;
-            animation: pulse-wa 2s infinite;
             transition: all 0.3s ease;
         }
 
         .whatsapp-float:hover {
             transform: translateY(-5px) scale(1.05);
             background-color: #128C7E;
-            animation: none;
         }
 
-        .whatsapp-float i { font-size: 1.5rem; }
+        /* Wrapper for the icon to position the dot */
+        .wa-icon-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        @keyframes pulse-wa {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        .whatsapp-float i { 
+            font-size: 1.5rem; 
+        }
+
+        /* The Blinking Green Online Dot */
+        .wa-online-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background-color: #30d158;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            animation: wa-blink 1.5s infinite;
+        }
+
+        @keyframes wa-blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
         }
 
         /* =========================================
@@ -639,11 +676,12 @@
             .timeline-icon { left: 30px; width: 40px; height: 40px; font-size: 1rem; box-shadow: 0 0 0 6px #EBE7DF; }
 
             .hero-left { padding: 0 3% 0 5%; }
-            .hero-buttons { flex-direction: row; }
+            .hero-buttons { max-width: 100%; }
         }
 
+        /* Mobile Screens */
         @media (max-width: 768px) {
-            /* Mobile Menu */
+            
             .hamburger { display: block; }
             .nav-links {
                 position: fixed;
@@ -663,19 +701,40 @@
             }
             .nav-links.active { right: 0; }
             .nav-links a { font-size: 1.5rem; }
-            
             body.menu-open .whatsapp-float { display: none; }
 
-            .gallery-grid { grid-template-columns: 1fr; }
+            #hero {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+                padding-top: 80px; 
+            }
+            .hero-right {
+                width: 100%;
+                height: 45vh; 
+                order: 1;
+            }
+            .hero-left {
+                width: 100%;
+                height: auto;
+                padding: 40px 20px;
+                text-align: center;
+                order: 2; 
+                background-color: transparent;
+            }
+            .status-badge { align-self: center; font-size: 0.7rem; }
+            .hero-left h1 { font-size: 2.2rem; }
+            .hero-left p { display: block; font-size: 1rem; margin-bottom: 20px; }
             
-            /* Strict 50/50 Layout on Mobile */
-            .hero-left { padding: 0 10px 0 15px; }
-            .hero-left h1 { font-size: 1.2rem; margin-bottom: 8px; }
-            .hero-left p { display: none; }
-            .status-badge { font-size: 0.55rem; padding: 4px 8px; margin-bottom: 10px; }
-            .hero-buttons { flex-direction: column; gap: 5px; width: 100%; }
-            .btn { padding: 8px 10px; font-size: 0.7rem; width: 100%; }
+            .hero-buttons { 
+                align-self: center; 
+                flex-direction: column; 
+                width: 100%; 
+                max-width: 350px; 
+            }
+            .btn { width: 100%; padding: 14px; font-size: 0.95rem; }
 
+            .gallery-grid { grid-template-columns: 1fr; }
             .whatsapp-float { bottom: 15px; right: 15px; padding: 10px 15px; font-size: 0.8rem; }
             .contact-buttons { flex-direction: column; }
             .contact-section .address { flex-direction: column; font-size: 0.9rem; }
@@ -701,7 +760,12 @@
     </nav>
 
     <section id="hero">
+        <div class="hero-right reveal" style="transition-delay: 0.2s;">
+            <img src="images/raman-profile.jpg" onerror="this.src='https://placehold.co/800x1000/E5E1D8/2C4A3B?text=Photo+Missing'" alt="Raman Bhandari">
+        </div>
+        
         <div class="hero-left reveal">
+            <!-- Blinking Online Status -->
             <div class="status-badge">
                 <span class="dot"></span> Available in Finland
             </div>
@@ -709,15 +773,11 @@
             <p>A decade of operational excellence in Qatar, now bringing proven inventory management, ERP expertise, and international adaptability to the Finnish workforce.</p>
             
             <div class="hero-buttons">
-                <a href="#experience" class="btn">Explore <i class="fa-solid fa-arrow-down"></i></a>
+                <a href="#contact" class="btn btn-hire">Need a Warehouse Pro? Hire Me <i class="fa-solid fa-handshake"></i></a>
                 
-                <!-- CV LINK: Using %20 to represent spaces in your GitHub file name -->
-                <a href="Raman%20Bhandari%20CV.pdf" download class="btn btn-outline-green">Download CV <i class="fa-solid fa-download"></i></a>
+                <!-- IMPORTANT: Make sure the file on GitHub is renamed to exactly Raman_Bhandari_CV.pdf -->
+                <a href="Raman_Bhandari_CV.pdf" download class="btn btn-outline-green">Download CV <i class="fa-solid fa-download"></i></a>
             </div>
-        </div>
-
-        <div class="hero-right reveal" style="transition-delay: 0.2s;">
-            <img src="images/raman-profile.jpg" onerror="this.src='https://placehold.co/800x1000/E5E1D8/2C4A3B?text=Photo+Missing'" alt="Raman Bhandari">
         </div>
     </section>
 
@@ -868,8 +928,12 @@
         </div>
     </section>
 
+    <!-- WHATSAPP BUTTON WITH BLINKING ONLINE DOT -->
     <a href="https://wa.me/358414975371?text=Hello%20Raman,%20I%20saw%20your%20portfolio!" target="_blank" class="whatsapp-float">
-        <i class="fa-brands fa-whatsapp"></i>
+        <div class="wa-icon-wrapper">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="wa-online-dot"></span>
+        </div>
         <span>Click to Chat</span>
     </a>
 
