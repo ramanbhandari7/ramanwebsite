@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raman Bhandari | Global Operations</title>
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           1. DESIGN SYSTEM & VARIABLES
+           ========================================= */
+        :root {
+            --bg-base: #F4F1EA;       /* Warm Cream Background */
+            --text-dark: #1A1A1A;     /* Deep Charcoal */
+            --text-muted: #5C5C5C;
+            --accent-green: #2C4A3B;  /* Nordic Forest Green */
+            --accent-rust: #D96B4C;   /* Warm Terracotta */
+            
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 24px 48px rgba(0, 0, 0, 0.05);
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            
+            --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* =========================================
+           2. SCROLL SNAP (Section Switching Effect)
+           ========================================= */
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity; 
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-base);
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        section {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            scroll-snap-align: start;
+            position: relative;
+            padding: 100px 5% 60px; /* Extra padding top for nav */
+        }
+
+        /* =========================================
+           3. LIVE ANIMATED BACKGROUND (Canvas)
+           ========================================= */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, rgba(244, 241, 234, 0.4) 0%, rgba(244, 241, 234, 0.95) 100%);
+        }
+
+        /* =========================================
+           4. NAVIGATION
+           ========================================= */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s var(--ease-smooth);
+        }
+
+        nav.scrolled {
+            background: rgba(244, 241, 234, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 15px 5%;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            z-index: 1001;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            background: rgba(255,255,255,0.5);
+            padding: 10px 24px;
+            border-radius: 99px;
+            border: 1px solid rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--accent-rust);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-rust);
+        }
+
+        /* =========================================
+           5. GLASSMORPHISM CARDS
+           ========================================= */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            padding: 40px;
+            transition: transform 0.5s var(--ease-smooth), box-shadow 0.5s var(--ease-smooth);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.08);
+        }
+
+        /* =========================================
+           6. SECTION 1: HERO
+           ========================================= */
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(44, 74, 59, 0.1);
+            color: var(--accent-green);
+            padding: 10px 20px;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid rgba(44, 74, 59, 0.2);
+        }
+
+        .status-badge .dot {
+            width: 8px; height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(44, 74, 59, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(44, 74, 59, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(44, 74, 59, 0); }
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero-content h1 em {
+            color: var(--accent-rust);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-weight: 500;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: var(--accent-green);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 99px;
+            transition: all 0.4s var(--ease-smooth);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(44, 74, 59, 0.2);
+        }
+
+        .btn:hover {
+            background: #1E362B;
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 15px 30px rgba(44, 74, 59, 0.3);
+        }
+
+        /* =========================================
+           7. SECTION 2: PROFILE & SKILLS
+           ========================================= */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+        }
+
+        .profile-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .skill-tag {
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 10px 20px;
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent-green);
+            color: #fff;
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* =========================================
+           8. SECTION 3: TIMELINE
+           ========================================= */
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(0,0,0,0.1);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--accent-rust);
+            border-radius: 50%;
+            border: 4px solid var(--bg-base);
+            box-shadow: 0 0 0 4px rgba(217, 107, 76, 0.2);
+        }
+
+        .timeline-content h3 {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .timeline-content h4 {
+            font-size: 0.9rem;
+            color: var(--accent-rust);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .timeline-content p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* =========================================
+           9. SECTION 4: GALLERY (3D Tilt)
+           ========================================= */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            perspective: 1000px;
+        }
+
+        .gallery-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 280px;
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26, 26, 26, 0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s var(--ease-smooth);
+        }
+
+        .gallery-card:hover .gallery-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay h4 {
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+        }
+
+        .gallery-overlay p {
+            color: var(--accent-rust);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        /* =========================================
+           10. SECTION 5: CONTACT
+           ========================================= */
+        .contact-section {
+            text-align: center;
+        }
+        
+        .contact-section h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        /* =========================================
+           11. SCROLL REVEAL ANIMATIONS
+           ========================================= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s var(--ease-smooth);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           12. MOBILE RESPONSIVENESS
+           ========================================= */
+        @media (max-width: 992px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline-line { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(even) { flex-direction: row; text-align: left !important; margin-bottom: 40px;}
+            .timeline-content { width: calc(100% - 50px); margin-left: 50px; text-align: left !important; }
+            .timeline-dot { left: 20px; }
+            .glass-card { padding: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 15px 5%; }
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .contact-buttons { flex-direction: column; }
+            .timeline-content h3 { font-size: 1.1rem; }
+            .timeline-content h4 { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Live Animated Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">Raman Bhandari</a>
+        <div class="nav-links">
+            <a href="#hero" class="active">Home</a>
+            <a href="#profile">Profile</a>
+            <a href="#experience">Experience</a>
+            <a href="#gallery">Journey</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HERO -->
+    <section id="hero">
+        <div class="hero-content reveal">
+            <div class="status-badge">
+                <span class="dot"></span> Available in Finland
+            </div>
+            <h1>Bridging Global Logistics<br>with <em>Nordic Precision.</em></h1>
+            <p>A decade of operational excellence in Qatar, now bringing proven inventory management, ERP expertise, and international adaptability to the Finnish workforce.</p>
+            <a href="#profile" class="btn">Explore My Journey <i class="fa-solid fa-arrow-down"></i></a>
+        </div>
+    </section>
+
+    <!-- SECTION 2: PROFILE & SKILLS -->
+    <section id="profile">
+        <div class="grid-2">
+            <div class="glass-card profile-text reveal">
+                <h2 class="section-title">The Operational Mindset.</h2>
+                <p>Transitioning from the high-volume logistics market of Qatar to Finland is more than a change of geography. It is a strategic move to bring adaptable, resilient operational experience to a Nordic workforce that values reliability and structure.</p>
+                <p>Currently pursuing a BBA at Laurea University of Applied Sciences, I am deeply committed to integrating into Finnish working culture. I bring a global perspective, having managed international visitor logistics during the FIFA World Cup Qatar 2022.</p>
+            </div>
+            
+            <div class="glass-card reveal" style="transition-delay: 0.2s;">
+                <h2 class="section-title">Core Competencies</h2>
+                <div class="skills-grid">
+                    <span class="skill-tag">Inventory Management</span>
+                    <span class="skill-tag">Warehouse Operations</span>
+                    <span class="skill-tag">ERP Systems</span>
+                    <span class="skill-tag">Data Entry</span>
+                    <span class="skill-tag">Sales Invoicing</span>
+                    <span class="skill-tag">Team Collaboration</span>
+                    <span class="skill-tag">Cross-Cultural Comm.</span>
+                    <span class="skill-tag">Finnish (Learning)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: EXPERIENCE -->
+    <section id="experience">
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass-card">
+                    <h3>Business Management Student</h3>
+                    <h4>Laurea UAS, Finland | Present</h4>
+                    <p>Developing skills in business administration, digital tools, and cross-cultural communication.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass-card">
+                    <h3>Event Transport & Support</h3>
+                    <h4>FIFA World Cup Qatar | 2022</h4>
+                    <p>Managed airport welcome/farewell desks, assisting with international logistics and VIP visitor support.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass-card">
+                    <h3>Shareholder</h3>
+                    <h4>Miniland | 2019 - Present</h4>
+                    <p>Business ownership exposure, providing practical insight into business management and commercial decision-making.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass-card">
+                    <h3>Assistant Storekeeper</h3>
+                    <h4>Al Baker Group, Qatar</h4>
+                    <p>Maintained rigorous inventory accuracy and stock control in a large-scale distribution environment.</p>
+                </div>
+            </div>
+
+            <!-- Added Al Baironi Trading Role -->
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass-card">
+                    <h3>Data Entry & Inventory Support</h3>
+                    <h4>Al Baironi Trading, Qatar</h4>
+                    <p>Processed sales invoices and managed ERP data entry to ensure smooth operational workflows and accurate documentation.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 4: GALLERY -->
+    <section id="gallery">
+        <div class="gallery-grid">
+            <div class="gallery-card reveal">
+                <img src="images/fifa-volunteer.jpg" alt="FIFA World Cup">
+                <div class="gallery-overlay">
+                    <h4>FIFA World Cup 2022</h4>
+                    <p>Airport Welcome Desk</p>
+                </div>
+            </div>
+            <div class="gallery-card reveal" style="transition-delay: 0.1s;">
+                <img src="images/warehouse-team.jpg" alt="Warehouse Operations">
+                <div class="gallery-overlay">
+                    <h4>Logistics Operations</h4>
+                    <p>Team Collaboration</p>
+                </div>
+            </div>
+            <div class="gallery-card reveal" style="transition-delay: 0.2s;">
+                <img src="images/office-work.jpg" alt="Data Entry">
+                <div class="gallery-overlay">
+                    <h4>Administration</h4>
+                    <p>ERP Data Entry</p>
+                </div>
+            </div>
+            <div class="gallery-card reveal" style="transition-delay: 0.1s;">
+                <img src="images/pallets.jpg" alt="Warehouse Pallets">
+                <div class="gallery-overlay">
+                    <h4>Inventory Management</h4>
+                    <p>Stock Control</p>
+                </div>
+            </div>
+            <div class="gallery-card reveal" style="transition-delay: 0.2s;">
+                <img src="images/nepal-flag.jpg" alt="Nepal Flag">
+                <div class="gallery-overlay">
+                    <h4>Global Representation</h4>
+                    <p>Proudly representing Nepal</p>
+                </div>
+            </div>
+            <div class="gallery-card reveal" style="transition-delay: 0.3s;">
+                <img src="images/raman-profile.jpg" alt="Raman">
+                <div class="gallery-overlay">
+                    <h4>Professional Profile</h4>
+                    <p>Helsinki, Finland</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: CONTACT -->
+    <section id="contact" class="contact-section">
+        <div class="reveal">
+            <h2>Let's build something reliable.</h2>
+            <p>Currently based in Helsinki. Available for entry-level roles in Logistics, Warehouse, Data Entry, or Administration.</p>
+            <div class="contact-buttons">
+                <a href="mailto:raman.bhandari@example.com" class="btn">
+                    <i class="fa-solid fa-envelope"></i> Email Me
+                </a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="btn btn-outline">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn Profile
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         JAVASCRIPT
+         ========================================= -->
+    <script>
+        // ----------------------------------------------------
+        // 1. LIVE BACKGROUND (Animated Network Canvas)
+        // ----------------------------------------------------
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(44, 74, 59, 0.3)';
+                ctx.fill();
+            }
+        }
+
+        const particleCount = window.innerWidth < 768 ? 40 : 100;
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(44, 74, 59, ${0.1 - dist/1500})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // ----------------------------------------------------
+        // 2. SCROLL REVEAL & NAV ACTIVE STATE
+        // ----------------------------------------------------
+        const revealElements = document.querySelectorAll('.reveal');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, {
+            threshold: 0.3,
+        });
+
+        revealElements.forEach(el => observer.observe(el));
+        sections.forEach(sec => observer.observe(sec));
+
+        // ----------------------------------------------------
+        // 3. NAVBAR SCROLL EFFECT
+        // ----------------------------------------------------
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // ----------------------------------------------------
+        // 4. 3D TILT EFFECT ON GALLERY
+        // ----------------------------------------------------
+        if (window.innerWidth > 992) {
+            const cards = document.querySelectorAll('.gallery-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -10;
+                    const rotateY = ((x - centerX) / centerX) * 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale(1)`;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
