@@ -159,19 +159,19 @@
         #hero {
             padding: 0; 
             display: flex;
-            flex-direction: row; /* यसले बायाँ-दायाँ राख्छ */
+            flex-direction: row; /* Side by side */
             height: 100vh; 
             width: 100%;
         }
 
         /* Left Half: Text */
         .hero-left {
-            width: 50%; /* ठ्याक्कै आधा भाग */
+            width: 50%;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 5% 0 8%; /* स्क्रिन सानो हुँदा पनि अटाउन प्याडिङ मिलाइएको */
+            padding: 0 5% 0 8%; 
             position: relative;
             z-index: 2;
             background-color: rgba(244, 241, 234, 0.6); 
@@ -209,7 +209,6 @@
 
         .hero-left h1 {
             font-family: var(--font-heading);
-            /* स्क्रिन साइज अनुसार फन्ट साइज घट्ने-बढ्ने */
             font-size: clamp(1.8rem, 4vw, 4.2rem); 
             line-height: 1.1;
             margin-bottom: 20px;
@@ -227,6 +226,14 @@
             font-weight: 500;
         }
 
+        /* Button Group */
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-self: flex-start;
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -240,10 +247,9 @@
             font-size: clamp(0.85rem, 1vw, 1rem);
             border-radius: 99px;
             transition: all 0.4s var(--ease-smooth);
-            border: none;
+            border: 2px solid var(--accent-green);
             cursor: pointer;
             box-shadow: 0 10px 20px rgba(44, 74, 59, 0.2);
-            align-self: flex-start;
         }
 
         .btn:hover {
@@ -252,9 +258,21 @@
             box-shadow: 0 15px 30px rgba(44, 74, 59, 0.3);
         }
 
+        .btn-outline-green {
+            background: transparent;
+            color: var(--accent-green);
+            box-shadow: none;
+            border: 2px solid var(--accent-green);
+        }
+
+        .btn-outline-green:hover {
+            background: var(--accent-green);
+            color: #fff;
+        }
+
         /* Right Half: Image */
         .hero-right {
-            width: 50%; /* ठ्याक्कै आधा भाग */
+            width: 50%;
             height: 100%;
             position: relative;
             overflow: hidden;
@@ -536,10 +554,8 @@
 
         /* =========================================
            12. MOBILE RESPONSIVENESS 
-           (यहाँ मैले Hero section लाई माथि-तल हुनबाट रोकेको छु)
            ========================================= */
         @media (max-width: 992px) {
-            /* अरु सेक्सनहरु माथि-तल हुन्छन्, तर Hero हुँदैन */
             .grid-2 { grid-template-columns: 1fr; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); }
             .timeline-line { left: 20px; }
@@ -547,13 +563,11 @@
             .timeline-content { width: calc(100% - 50px); margin-left: 50px; text-align: left !important; }
             .timeline-dot { left: 20px; }
             .glass-card { padding: 30px; }
-            
-            /* Hero ma side-by-side nai rakhna ko lagi padding adjust */
-            .hero-left {
-                padding: 0 3% 0 5%;
-            }
+            .hero-left { padding: 0 3% 0 5%; }
+            .hero-buttons { flex-direction: row; } /* Side by side buttons */
         }
 
+        /* Strict Side-by-Side on Mobile Phones */
         @media (max-width: 768px) {
             nav { padding: 15px 5%; }
             .nav-links { display: none; }
@@ -562,11 +576,30 @@
             .timeline-content h3 { font-size: 1.1rem; }
             .timeline-content h4 { font-size: 0.85rem; }
             
-            /* मोबाइलमा पनि आधा-आधा नै राख्नको लागि */
-            .hero-left h1 { font-size: 1.5rem; }
-            .hero-left p { font-size: 0.8rem; margin-bottom: 15px; }
-            .status-badge { font-size: 0.6rem; padding: 4px 8px; margin-bottom: 10px;}
-            .btn { padding: 10px 16px; font-size: 0.75rem; }
+            /* Extreme Mobile Optimization for 50/50 Hero */
+            .hero-left { 
+                padding: 0 10px 0 15px; 
+            }
+            .hero-left h1 { 
+                font-size: 1.3rem; /* Very small font */
+                margin-bottom: 10px;
+            }
+            .hero-left p { 
+                display: none; /* Hide paragraph to save space */
+            }
+            .status-badge { 
+                font-size: 0.55rem; 
+                padding: 4px 8px; 
+                margin-bottom: 15px;
+            }
+            .hero-buttons {
+                flex-direction: column; /* Stack buttons vertically */
+                gap: 8px;
+            }
+            .btn { 
+                padding: 8px 12px; 
+                font-size: 0.7rem; 
+            }
         }
     </style>
 </head>
@@ -587,7 +620,7 @@
         </div>
     </nav>
 
-    <!-- SECTION 1: HERO (Side by Side 50/50 on ALL screens) -->
+    <!-- SECTION 1: HERO (Strict 50/50 Split) -->
     <section id="hero">
         
         <!-- Left 50%: Text -->
@@ -597,7 +630,13 @@
             </div>
             <h1>Bridging Global Logistics with <em>Nordic Precision.</em></h1>
             <p>A decade of operational excellence in Qatar, now bringing proven inventory management, ERP expertise, and international adaptability to the Finnish workforce.</p>
-            <a href="#profile" class="btn">Explore <i class="fa-solid fa-arrow-down"></i></a>
+            
+            <!-- Added CV Download Button -->
+            <div class="hero-buttons">
+                <a href="#profile" class="btn">Explore <i class="fa-solid fa-arrow-down"></i></a>
+                <!-- Put your PDF file in the main folder and name it Raman_Bhandari_CV.pdf -->
+                <a href="Raman_Bhandari_CV.pdf" download class="btn btn-outline-green">Download CV <i class="fa-solid fa-download"></i></a>
+            </div>
         </div>
 
         <!-- Right 50%: Image -->
@@ -739,10 +778,12 @@
             <h2>Let's build something reliable.</h2>
             <p>Currently based in Helsinki. Available for entry-level roles in Logistics, Warehouse, Data Entry, or Administration.</p>
             <div class="contact-buttons">
-                <a href="mailto:raman.bhandari@example.com" class="btn">
+                <!-- Replace with your actual email -->
+                <a href="mailto:raman.bhandari@email.com" class="btn">
                     <i class="fa-solid fa-envelope"></i> Email Me
                 </a>
-                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="btn btn-outline">
+                <!-- Replace with your actual LinkedIn URL -->
+                <a href="https://linkedin.com/in/raman-bhandari" target="_blank" class="btn btn-outline">
                     <i class="fa-brands fa-linkedin"></i> LinkedIn Profile
                 </a>
             </div>
@@ -790,7 +831,7 @@
             }
         }
 
-        const particleCount = window.innerWidth < 768 ? 40 : 100;
+        const particleCount = window.innerWidth < 768 ? 30 : 80;
         for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle());
         }
