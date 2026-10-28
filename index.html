@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raman Bhandari | Global Operations</title>
     
+    <!-- FAVICON.IO TAGS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="manifest" href="./site.webmanifest">
+    
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -279,7 +285,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Shifts image to show face */
             object-position: center 10%; 
             display: block;
             transition: transform 2s var(--ease-smooth);
@@ -531,6 +536,16 @@
             margin-bottom: 20px;
         }
 
+        .contact-section .address {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
         .contact-buttons {
             display: flex;
             justify-content: center;
@@ -568,6 +583,13 @@
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
             z-index: 9999;
             animation: pulse-wa 2s infinite;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: #128C7E;
+            animation: none;
         }
 
         .whatsapp-float i { font-size: 1.5rem; }
@@ -634,8 +656,7 @@
             
             <div class="hero-buttons">
                 <a href="#experience" class="btn">Explore Experience <i class="fa-solid fa-arrow-down"></i></a>
-                
-                <!-- The Download button now points to the exact file name you need on GitHub -->
+                <!-- Ensure your CV file is named exactly this in your GitHub root folder -->
                 <a href="Raman_Bhandari_CV.pdf" download class="btn btn-outline-green">Download CV <i class="fa-solid fa-download"></i></a>
             </div>
         </div>
@@ -779,12 +800,20 @@
     <section id="contact" class="contact-section">
         <div class="reveal">
             <h2>Let's build something reliable.</h2>
-            <p>Currently based in Helsinki. Available for entry-level roles in Logistics, Warehouse, Data Entry, or Administration.</p>
+            
+            <!-- Physical Address -->
+            <p class="address">
+                <i class="fa-solid fa-location-dot"></i> Viljilejantie 4-6 C079 Malminkartano 00410 Helsinki Finland
+            </p>
+            
             <div class="contact-buttons">
-                <a href="mailto:raman.bhandari@email.com" class="btn btn-outline btn-email">
+                <!-- Email Address -->
+                <a href="mailto:ramanbhandari7@outlook.com" class="btn btn-outline btn-email">
                     <i class="fa-solid fa-envelope"></i> Email Me
                 </a>
-                <a href="https://linkedin.com/in/raman-bhandari" target="_blank" class="btn btn-outline btn-linkedin">
+                
+                <!-- LinkedIn URL -->
+                <a href="https://www.linkedin.com/in/ramanbhandari1991/" target="_blank" class="btn btn-outline btn-linkedin">
                     <i class="fa-brands fa-linkedin"></i> LinkedIn Profile
                 </a>
             </div>
@@ -792,7 +821,7 @@
     </section>
 
     <!-- WHATSAPP BUTTON -->
-    <a href="https://wa.me/358400000000?text=Hello%20Raman,%20I%20saw%20your%20portfolio!" target="_blank" class="whatsapp-float">
+    <a href="https://wa.me/358414975371?text=Hello%20Raman,%20I%20saw%20your%20portfolio!" target="_blank" class="whatsapp-float">
         <i class="fa-brands fa-whatsapp"></i>
         <span>Click to Chat</span>
     </a>
